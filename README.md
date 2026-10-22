@@ -1,3 +1,6 @@
+# studymate-ai
+AI-powered PDF study assistant using Python, Streamlit, and the OpenAI API. Copy description
+
 # StudyMate AI 📚
 
 An AI study assistant that lets users upload PDF notes and ask questions grounded in the document text.
