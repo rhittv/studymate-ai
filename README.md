@@ -1,105 +1,131 @@
-# studymate-ai
-AI-powered PDF study assistant using Python, Streamlit, and the OpenAI API. Copy description
-
 # StudyMate AI 📚
 
-An AI study assistant that lets users upload PDF notes and ask questions grounded in the document text.
+**An AI-powered PDF question-answering assistant built with Python, Streamlit, and the OpenAI API.**
 
-## Features
+StudyMate AI allows users to upload a PDF document and ask questions about its contents. The application extracts text from the document, splits it into smaller chunks, retrieves relevant passages, and uses an OpenAI language model to generate answers grounded in the retrieved context.
 
-- Upload and process multiple text-based PDFs
-- Extract text with `pypdf`
-- Split documents into overlapping chunks
-- Retrieve relevant passages with a simple keyword baseline
-- Generate context-grounded answers with the OpenAI API
-- Inspect retrieved source passages in the interface
-- Keep a short conversation history for follow-up questions
+This project was built to develop practical skills in LLM application development, document processing, retrieval, API integration, and automated testing.
 
-## Tech stack
+## ✨ Features
 
-- Python
-- Streamlit
-- OpenAI API
-- pypdf
-- python-dotenv
+- **PDF text extraction:** Extracts text from uploaded PDF documents using `pypdf`.
+- **Text chunking:** Splits extracted text into smaller, overlapping chunks to provide manageable context to the language model.
+- **Source tracking:** Preserves page numbers and displays source information so users can inspect where retrieved information came from.
+- **Question answering:** Uses the OpenAI API to answer questions using retrieved document passages.
+- **Context-aware responses:** Provides the model with relevant document text instead of relying only on its general knowledge.
+- **Missing-information handling:** Tested behavior for questions that cannot be answered from the uploaded document.
+- **Automated tests:** Uses `pytest` to test chunk metadata, relevant passage retrieval, and queries with no matching passages.
 
-## Run locally
+## 🛠️ Tech Stack
 
-### 1. Requirements
+- **Python** — application logic and document processing
+- **Streamlit** — interactive web interface
+- **OpenAI API** — LLM-powered answer generation
+- **pypdf** — PDF text extraction
+- **python-dotenv** — local environment-variable configuration
+- **pytest** — automated testing
+- **Git and GitHub** — version control and project hosting
 
-Install Python 3.10 or newer and Git.
+## ⚙️ How It Works
 
-### 2. Clone the repository
+1. **Upload:** The user uploads a PDF through the Streamlit interface.
+2. **Extract:** The application extracts text from each page and retains page-number metadata.
+3. **Chunk:** Page text is split into overlapping chunks to preserve useful context.
+4. **Retrieve:** A keyword-overlap retrieval function selects relevant chunks for the user's question.
+5. **Generate:** The retrieved passages are sent to an OpenAI model, which generates an answer based on the provided context.
+6. **Inspect:** The interface displays source information, including the relevant page and text, so the user can verify the answer.
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Python 3
+- An OpenAI API key
+
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/studymate-ai.git
+git clone https://github.com/rhittv/studymate-ai.git
 cd studymate-ai
 ```
 
-### 3. Create and activate a virtual environment
+### 2. Create and activate a virtual environment
 
 **macOS / Linux**
+
 ```bash
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-**Windows PowerShell**
-```powershell
-python -m venv .venv
-.venv\Scripts\Activate.ps1
-```
-
-### 4. Install dependencies
+### 3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 5. Configure your API key
+### 4. Configure your API key
 
-Copy `.env.example` to `.env`, then replace the placeholder with your own OpenAI API key.
+Create a `.env` file in the project root:
 
-Never commit `.env` or share your API key publicly.
+```env
+OPENAI_API_KEY=your_api_key_here
+```
 
-### 6. Start the app
+Replace the placeholder with your own API key. Never commit your `.env` file or expose your API key publicly.
+
+### 5. Run the application
 
 ```bash
 streamlit run app.py
 ```
 
-Your browser should open the local app, usually at `http://localhost:8501`.
+Streamlit will provide a local URL where you can open the app in your browser.
 
-## How it works
+## 🧪 Run Tests
 
-1. PDF text is extracted.
-2. Text is split into overlapping chunks.
-3. A basic keyword retrieval function selects passages related to the question.
-4. The selected passages are sent to the LLM as context.
-5. The model answers and can refer to retrieved chunk IDs.
-6. The user can inspect the retrieved passages in the interface.
+Run the automated test suite with:
 
-## Current limitations
+```bash
+pytest -v
+```
 
-This is an intentionally small first version, not a production-grade RAG system.
+The current tests cover:
 
-- Keyword retrieval is a baseline; it is not semantic search.
-- Scanned/image-only PDFs need OCR.
-- Citations refer to text chunks, not yet precise PDF page links.
-- Conversation and uploaded documents live in the current Streamlit session.
-- No authentication or persistent database is included.
-- LLM answers can still be incorrect; verify important information against the source documents.
+- Preservation of page numbers and chunk metadata during chunking.
+- Retrieval of a relevant passage for a matching question.
+- Returning no results when no chunks match the query.
 
-## Roadmap
+## 🧠 Engineering Decisions and Learnings
 
-- [ ] Improve PDF parsing and preserve page-level citations
-- [ ] Add semantic embeddings and vector search
-- [ ] Add a document library and session persistence
-- [ ] Add tests for chunking, retrieval, and API error handling
-- [ ] Add answer-quality evaluation
-- [ ] Deploy a public demo
-- [ ] Add screenshots and a short demo video
+Building this project provided hands-on practice with:
 
-## Portfolio note
+- Designing a document-processing pipeline.
+- Preserving metadata across extraction and chunking stages.
+- Connecting a Python application to an external LLM API.
+- Managing API credentials through environment variables.
+- Testing retrieval logic independently of the language model.
+- Handling questions for which the retrieval stage finds no matching passages.
+- Using Git and GitHub to manage and publish a project.
 
-This project demonstrates a first end-to-end LLM application: interface, file processing, retrieval, API integration, and basic source inspection. The roadmap documents the next engineering improvements.
+## 🔭 Current Limitations and Future Improvements
+
+StudyMate AI is a learning prototype. Its current retrieval system uses keyword overlap rather than embeddings or semantic search, so it may miss relevant passages when a question uses different wording from the source document.
+
+Potential next improvements include:
+
+- Semantic retrieval using embeddings and a vector index.
+- More comprehensive automated tests, including API mocking and end-to-end cases.
+- Improved handling of scanned PDFs and documents with complex layouts.
+- More robust evaluation of answer accuracy and source attribution.
+- Deployment so others can try the application online.
+
+## 👨‍💻 Author
+
+**Rhittv**
+
+GitHub: [@rhittv](https://github.com/rhittv)
+
+---
+
+*StudyMate AI is an educational project exploring practical LLM application development and document-based question answering.*
