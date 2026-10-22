@@ -1,4 +1,6 @@
 # StudyMate AI 📚
+<img width="1433" height="810" alt="Screenshot 2026-10-22 at 23 54 29" src="https://github.com/user-attachments/assets/1a9d8a79-dc17-4b51-93be-28312044be4a" />
+
 
 **An AI-powered PDF question-answering assistant built with Python, Streamlit, and the OpenAI API.**
 
